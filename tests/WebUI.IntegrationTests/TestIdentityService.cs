@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Application;
-using CleanArchitecture.Application.Common.Models;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Models;
 
 namespace CleanArchitecture.WebUI.IntegrationTests
 {

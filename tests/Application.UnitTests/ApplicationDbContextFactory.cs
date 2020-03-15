@@ -1,3 +1,4 @@
+using System;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -5,9 +6,8 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Moq;
-using System;
 
-namespace CleanArchitecture.Application.UnitTests.Common
+namespace CleanArchitecture.Application.UnitTests
 {
     public static class ApplicationDbContextFactory
     {
@@ -45,16 +45,13 @@ namespace CleanArchitecture.Application.UnitTests.Common
 
         public static void SeedSampleData(ApplicationDbContext context)
         {
-            context.TodoLists.AddRange(
-                new TodoList { Id = 1, Title = "Shopping" }
-            );
-
-            context.TodoItems.AddRange(
-                new TodoItem { Id = 1, ListId = 1, Title = "Bread", Done = true },
-                new TodoItem { Id = 2, ListId = 1, Title = "Butter", Done = true },
-                new TodoItem { Id = 3, ListId = 1, Title = "Milk" },
-                new TodoItem { Id = 4, ListId = 1, Title = "Sugar" },
-                new TodoItem { Id = 5, ListId = 1, Title = "Coffee" }
+            
+            context.SaleItems.AddRange(
+                new SaleItem {ArticleNumber = "9IOkSWdpQO4NpPsYgsfBlCcLVO0NfVke", SalesPriceInEuro = 3.99m},
+                new SaleItem {ArticleNumber = "ZydjaYLPestv4JgKiUKKfkjLCcvlCwXa", SalesPriceInEuro = 3.99m},
+                new SaleItem {ArticleNumber = "XoLEU9UXv88hwLkDIS22D42NpgfJRrM8", SalesPriceInEuro = 1028.44m},
+                new SaleItem {ArticleNumber = "tsSP6rjwmofYq1M7tWIvkQTDDdhNXSbT", SalesPriceInEuro = 66.33m},
+                new SaleItem {ArticleNumber = "yHmnIBDPWz6RZLPYO4XSpsAdKf8G3A2B", SalesPriceInEuro = 139.66m}
             );
 
             context.SaveChanges();
