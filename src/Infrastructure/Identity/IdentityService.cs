@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Application;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Identity
 {

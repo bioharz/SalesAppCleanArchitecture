@@ -4,7 +4,7 @@ using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Infrastructure.Persistence;
 using Xunit;
 
-namespace CleanArchitecture.Application.UnitTests.Common
+namespace CleanArchitecture.Application.UnitTests
 {
     public sealed class QueryTestFixture : IDisposable
     {

@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using System;
+﻿using System;
+using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.Infrastructure.Services
 {

@@ -3,7 +3,7 @@ using CleanArchitecture.Domain.ValueObjects;
 using Shouldly;
 using Xunit;
 
-namespace CleanArchitecture.Domain.UnitTests.ValueObjects
+namespace Domain.UnitTests.ValueObjects
 {
     public class AdAccountTests
     {

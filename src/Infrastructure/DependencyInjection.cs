@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
@@ -13,8 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Security.Claims;
 
 namespace CleanArchitecture.Infrastructure
 {
@@ -65,7 +63,6 @@ namespace CleanArchitecture.Infrastructure
 
                 services.AddTransient<IDateTime, DateTimeService>();
                 services.AddTransient<IIdentityService, IdentityService>();
-                services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             }
 
             services.AddAuthentication()
