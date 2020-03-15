@@ -1,9 +1,8 @@
+# SalesApp
 
- # SalesApp. Applying concepts from the Clean Architecture design pattern.
- 
-<br/>
+### Applying concepts from [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-This is a sample app, created with Angular 8 and ASP.NET Core 3 following the principles of Clean Architecture.
+This is a sample project, created with Angular 8, ASP.NET Core 3 and MS MSQL following the principles of Clean Architecture.
 
 ## Main Functionalities
 * Ability to post sales date, which comes in the following format
@@ -33,7 +32,7 @@ This is a sample app, created with Angular 8 and ASP.NET Core 3 following the pr
 5.  run `dotnet run` to launch the project. Angular-Url: `https://localhost:5001/`. Swagger-Url: `https://localhost:5001/api`
 
 WIP: Dockerfile and docker-compose service.
-## Design Pattern Overview
+## Architecture Overview
 
 ### Domain
 
@@ -71,3 +70,5 @@ For example, to add a new migration from the root folder:
 
 This project is licensed with the [MIT license](LICENSE).
 Solution Template based on [CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture).
+
+Special thanks to [Uncle Bob (Robert C. Martin)](https://blog.cleancoder.com/) ❤️ 
