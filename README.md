@@ -1,6 +1,6 @@
 # SalesApp
 
-### Applying concepts from [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+### Applying the concepts of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 This is a sample project, created with Angular 8, ASP.NET Core 3 and MS MSQL following the principles of Clean Architecture.
 
