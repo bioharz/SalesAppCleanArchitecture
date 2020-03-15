@@ -30,7 +30,7 @@ This is a sample app, created with Angular 8 and ASP.NET Core 3 following the pr
 1. Install the latest [.NET Core SDK](https://dotnet.microsoft.com/download)
 2. (optional, if MS SQL is not installed) Install the latest [Docker Engine](https://www.docker.com/get-started)
 3. (optional, if MS SQL is not installed) Run `docker-compose up -d` to spin up the MS SQL Container.
-5.  run `dotnet run` to launch the project
+5.  run `dotnet run` to launch the project. Angular-Url: `https://localhost:5001/`. Swagger-Url: `https://localhost:5001/api`
 
 WIP: Dockerfile and docker-compose service.
 ## Design Pattern Overview
