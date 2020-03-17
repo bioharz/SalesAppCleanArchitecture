@@ -30,17 +30,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/SaleItemDto"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "get": {
         "tags": [
@@ -58,17 +53,34 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "SaleItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "articleNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "salesPriceInEuro": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "dateTimeOffset": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "CreateSaleItemCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -80,6 +92,11 @@
           "salesPriceInEuro": {
             "type": "number",
             "format": "decimal"
+          },
+          "dateTimeOffset": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         }
       },
@@ -93,20 +110,6 @@
             "items": {
               "$ref": "#/components/schemas/SaleItemDto"
             }
-          }
-        }
-      },
-      "SaleItemDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "articleNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "salesPriceInEuro": {
-            "type": "number",
-            "format": "decimal"
           }
         }
       }

@@ -31,4 +31,7 @@ namespace CleanArchitecture.Application.UnitTests
 
     [CollectionDefinition("QueryTests")]
     public class QueryCollection : ICollectionFixture<QueryTestFixture> { }
+    
+    [CollectionDefinition("CommandTests")]
+    public class CommandCollection : ICollectionFixture<QueryTestFixture> { }
 }

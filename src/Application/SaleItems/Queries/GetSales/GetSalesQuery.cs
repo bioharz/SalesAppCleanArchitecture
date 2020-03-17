@@ -22,13 +22,12 @@ namespace CleanArchitecture.Application.SaleItems.Queries.GetSales
                 _mapper = mapper;
             }
 
-            public async Task<SalesVm> Handle(GetSalesQuery request, CancellationToken cancellationToken)
+            public async Task<SalesVm> Handle(GetSalesQuery request, CancellationToken cancellationToken = default)
             {
                 var vm = new SalesVm
                 {
                     Lists = await _context.SaleItems
                         .ProjectTo<SaleItemDto>(_mapper.ConfigurationProvider)
-                        .OrderBy(t => t.ArticleNumber)
                         .ToListAsync(cancellationToken)
                 };
 

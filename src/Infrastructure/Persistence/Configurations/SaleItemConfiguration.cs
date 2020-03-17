@@ -12,12 +12,14 @@ namespace CleanArchitecture.Infrastructure.Persistence.Configurations
         
         public void Configure(EntityTypeBuilder<SaleItem> builder)
         {
-            builder.HasKey(t => t.ArticleNumber);
+            builder.HasKey(t => t.Id);
             
-            builder.Property(t => t.ArticleNumber)
-                .HasMaxLength(SaleItemConstants.ArticleNumberMaxLength)
+            
+            builder.Property(t => t.SalesPriceInEuro)
                 .IsRequired();
-            builder.Property(t => t.SalesPriceInEuro).IsRequired().HasColumnType(MoneyTypeMsSql);
+            
+            builder.Property(t => t.SalesPriceInEuro)
+                .HasColumnType(MoneyTypeMsSql);
         }
     }
 }

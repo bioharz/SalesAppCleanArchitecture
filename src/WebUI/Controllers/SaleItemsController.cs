@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class SaleItemsController : ApiController
     {
         [HttpPost]
-        public async Task<ActionResult<string>> Create(CreateSaleItemCommand command)
+        public async Task<ActionResult<SaleItemDto>> Create(CreateSaleItemCommand command)
         {
             return await Mediator.Send(command);
         }

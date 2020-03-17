@@ -122,11 +122,11 @@ namespace CleanArchitecture.WebUI.IntegrationTests
         public static void SeedSampleData(ApplicationDbContext context)
         {
             context.SaleItems.AddRange(
-                new SaleItem {ArticleNumber = "cnL1iJBWcnRxnIRsB5c15JxJvg2hQbPj", SalesPriceInEuro = 66.23m},
-                new SaleItem {ArticleNumber = "DxhmHuMu9SKyWTLT7HoszZ8GBY5HfoM8", SalesPriceInEuro = 234.54m},
-                new SaleItem {ArticleNumber = "cknJ8NCOfd3opjCe1DzmTARXwQM5pJwj", SalesPriceInEuro = 1235.01m},
-                new SaleItem {ArticleNumber = "ufYLJY8ydzPLh1gJcaAhnR2w90HOfx9p", SalesPriceInEuro = 10000.00m},
-                new SaleItem {ArticleNumber = "ZIQo2AbJrOsSIvp6PCnJQCFGZE0M3VPd", SalesPriceInEuro = 3.66m}
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "cnL1iJBWcnRxnIRsB5c15JxJvg2hQbPj"}, SalesPriceInEuro = 66.23m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "DxhmHuMu9SKyWTLT7HoszZ8GBY5HfoM8"}, SalesPriceInEuro = 234.54m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "cknJ8NCOfd3opjCe1DzmTARXwQM5pJwj"}, SalesPriceInEuro = 1235.01m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "ufYLJY8ydzPLh1gJcaAhnR2w90HOfx9p"}, SalesPriceInEuro = 10000.00m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "ZIQo2AbJrOsSIvp6PCnJQCFGZE0M3VPd"}, SalesPriceInEuro = 3.66m}
             );
 
             context.SaveChanges();

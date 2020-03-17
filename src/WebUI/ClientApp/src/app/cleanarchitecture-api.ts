@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ISaleItemsClient {
-    create(command: CreateSaleItemCommand): Observable<string>;
+    create(command: CreateSaleItemCommand): Observable<SaleItemDto>;
     get(): Observable<SalesVm>;
 }
 
@@ -32,7 +32,7 @@ export class SaleItemsClient implements ISaleItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    create(command: CreateSaleItemCommand): Observable<string> {
+    create(command: CreateSaleItemCommand): Observable<SaleItemDto> {
         let url_ = this.baseUrl + "/api/SaleItems";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -55,14 +55,14 @@ export class SaleItemsClient implements ISaleItemsClient {
                 try {
                     return this.processCreate(<any>response_);
                 } catch (e) {
-                    return <Observable<string>><any>_observableThrow(e);
+                    return <Observable<SaleItemDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string>><any>_observableThrow(response_);
+                return <Observable<SaleItemDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<string> {
+    protected processCreate(response: HttpResponseBase): Observable<SaleItemDto> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -73,7 +73,7 @@ export class SaleItemsClient implements ISaleItemsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            result200 = SaleItemDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -81,7 +81,7 @@ export class SaleItemsClient implements ISaleItemsClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string>(<any>null);
+        return _observableOf<SaleItemDto>(<any>null);
     }
 
     get(): Observable<SalesVm> {
@@ -133,9 +133,58 @@ export class SaleItemsClient implements ISaleItemsClient {
     }
 }
 
+export class SaleItemDto implements ISaleItemDto {
+    id?: string;
+    articleNumber?: string | undefined;
+    salesPriceInEuro?: number;
+    dateTimeOffset?: Date;
+
+    constructor(data?: ISaleItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.articleNumber = _data["articleNumber"];
+            this.salesPriceInEuro = _data["salesPriceInEuro"];
+            this.dateTimeOffset = _data["dateTimeOffset"] ? new Date(_data["dateTimeOffset"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SaleItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SaleItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["articleNumber"] = this.articleNumber;
+        data["salesPriceInEuro"] = this.salesPriceInEuro;
+        data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISaleItemDto {
+    id?: string;
+    articleNumber?: string | undefined;
+    salesPriceInEuro?: number;
+    dateTimeOffset?: Date;
+}
+
 export class CreateSaleItemCommand implements ICreateSaleItemCommand {
     articleNumber?: string | undefined;
     salesPriceInEuro?: number;
+    dateTimeOffset?: Date | undefined;
 
     constructor(data?: ICreateSaleItemCommand) {
         if (data) {
@@ -150,6 +199,7 @@ export class CreateSaleItemCommand implements ICreateSaleItemCommand {
         if (_data) {
             this.articleNumber = _data["articleNumber"];
             this.salesPriceInEuro = _data["salesPriceInEuro"];
+            this.dateTimeOffset = _data["dateTimeOffset"] ? new Date(_data["dateTimeOffset"].toString()) : <any>undefined;
         }
     }
 
@@ -164,6 +214,7 @@ export class CreateSaleItemCommand implements ICreateSaleItemCommand {
         data = typeof data === 'object' ? data : {};
         data["articleNumber"] = this.articleNumber;
         data["salesPriceInEuro"] = this.salesPriceInEuro;
+        data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -171,6 +222,7 @@ export class CreateSaleItemCommand implements ICreateSaleItemCommand {
 export interface ICreateSaleItemCommand {
     articleNumber?: string | undefined;
     salesPriceInEuro?: number;
+    dateTimeOffset?: Date | undefined;
 }
 
 export class SalesVm implements ISalesVm {
@@ -215,46 +267,6 @@ export class SalesVm implements ISalesVm {
 
 export interface ISalesVm {
     lists?: SaleItemDto[] | undefined;
-}
-
-export class SaleItemDto implements ISaleItemDto {
-    articleNumber?: string | undefined;
-    salesPriceInEuro?: number;
-
-    constructor(data?: ISaleItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.articleNumber = _data["articleNumber"];
-            this.salesPriceInEuro = _data["salesPriceInEuro"];
-        }
-    }
-
-    static fromJS(data: any): SaleItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new SaleItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["articleNumber"] = this.articleNumber;
-        data["salesPriceInEuro"] = this.salesPriceInEuro;
-        return data; 
-    }
-}
-
-export interface ISaleItemDto {
-    articleNumber?: string | undefined;
-    salesPriceInEuro?: number;
 }
 
 export class SwaggerException extends Error {

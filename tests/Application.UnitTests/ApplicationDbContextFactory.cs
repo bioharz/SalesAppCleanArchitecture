@@ -33,8 +33,7 @@ namespace CleanArchitecture.Application.UnitTests
                 .Returns("00000000-0000-0000-0000-000000000000");
 
             var context = new ApplicationDbContext(
-                options, operationalStoreOptions,
-                currentUserServiceMock.Object, dateTimeMock.Object);
+                options, operationalStoreOptions);
 
             context.Database.EnsureCreated();
 
@@ -47,11 +46,11 @@ namespace CleanArchitecture.Application.UnitTests
         {
             
             context.SaleItems.AddRange(
-                new SaleItem {ArticleNumber = "9IOkSWdpQO4NpPsYgsfBlCcLVO0NfVke", SalesPriceInEuro = 3.99m},
-                new SaleItem {ArticleNumber = "ZydjaYLPestv4JgKiUKKfkjLCcvlCwXa", SalesPriceInEuro = 3.99m},
-                new SaleItem {ArticleNumber = "XoLEU9UXv88hwLkDIS22D42NpgfJRrM8", SalesPriceInEuro = 1028.44m},
-                new SaleItem {ArticleNumber = "tsSP6rjwmofYq1M7tWIvkQTDDdhNXSbT", SalesPriceInEuro = 66.33m},
-                new SaleItem {ArticleNumber = "yHmnIBDPWz6RZLPYO4XSpsAdKf8G3A2B", SalesPriceInEuro = 139.66m}
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "9IOkSWdpQO4NpPsYgsfBlCcLVO0NfVke"}, SalesPriceInEuro = 3.99m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "ZydjaYLPestv4JgKiUKKfkjLCcvlCwXa"}, SalesPriceInEuro = 3.99m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "XoLEU9UXv88hwLkDIS22D42NpgfJRrM8"}, SalesPriceInEuro = 1028.44m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "tsSP6rjwmofYq1M7tWIvkQTDDdhNXSbT"}, SalesPriceInEuro = 66.33m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "yHmnIBDPWz6RZLPYO4XSpsAdKf8G3A2B"}, SalesPriceInEuro = 139.66m}
             );
 
             context.SaveChanges();

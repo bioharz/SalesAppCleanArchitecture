@@ -1,15 +1,23 @@
-﻿using CleanArchitecture.Domain.Common;
+﻿using System;
+using CleanArchitecture.Domain.Common;
 
 namespace CleanArchitecture.Domain.Entities
 {
+    
     public static class  SaleItemConstants
     {
-        public const short ArticleNumberMaxLength = 32;
+        public const int Scale = 2;
+        public const int Precision = 15; //see: https://docs.microsoft.com/en-us/sql/t-sql/data-types/money-and-smallmoney-transact-sql?view=sql-server-ver15
+        public const bool IgnoreTrailingZeros = true;
     }
-    public class SaleItem : AuditableEntity
+    
+    public class SaleItem
     {
-        public string ArticleNumber { get; set; }
+        public Guid Id { get; set; }
         
         public decimal SalesPriceInEuro { get; set; }
+        
+        public ArticleItem ArticleItem { get; set; }
+        public DateTimeOffset DateTimeOffset { get; set; }
     }
 }
