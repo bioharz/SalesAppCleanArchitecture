@@ -13,6 +13,8 @@ namespace CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem
 
             RuleFor(v => v.SalesPriceInEuro)
                 .ScalePrecision(SaleItemConstants.Scale, SaleItemConstants.Precision, SaleItemConstants.IgnoreTrailingZeros);
+
+            RuleFor(v => v.SalesPriceInEuro).GreaterThanOrEqualTo(0);
         }
     }
 }
