@@ -28,14 +28,15 @@ namespace CleanArchitecture.Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            _timer.Start();
+            //_timer.Start();
 
             var response = await next();
 
-            _timer.Stop();
+            //_timer.Stop();
 
-            var elapsedMilliseconds = _timer.ElapsedMilliseconds;
+            //var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
+            /*
             if (elapsedMilliseconds > 500)
             {
                 var requestName = typeof(TRequest).Name;
@@ -45,6 +46,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                 _logger.LogWarning("CleanArchitecture Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
                     requestName, elapsedMilliseconds, userId, userName, request);
             }
+            */
 
             return response;
         }
