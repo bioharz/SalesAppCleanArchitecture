@@ -16,6 +16,11 @@ This is a sample project, created with Angular 8, ASP.NET Core 3 and MS MSQL fol
 ## Further Functionalities
 * ID Solution + JWT Auth (already implemented)
 
+## TODOS
+ - CI / CD Azure Devops
+ - Statistics: Revenue grouped by articles (TODO: calculation should be within the DB, not in business logic!
+ - Dockerfile for Tests
+
 ## Technologies
 * .NET Core 3.1
 * ASP .NET Core 3.1
