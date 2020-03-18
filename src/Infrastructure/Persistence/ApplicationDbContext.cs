@@ -1,8 +1,5 @@
 ﻿using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using IdentityServer4.EntityFramework.Options;
@@ -20,6 +17,21 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         public DbSet<SaleItem> SaleItems { get; set; }
         public DbSet<ArticleItem> ArticleItems { get; set; }
+        
+        /*
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<SaleItem>())
+            {
+                if (entry.State != EntityState.Added) continue;
+                
+                if (entry.Entity.DateTimeOffset == DateTimeOffset.MinValue)
+                    entry.Entity.DateTimeOffset = DateTimeOffset.Now;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+        */
         
         protected override void OnModelCreating(ModelBuilder builder)
         {

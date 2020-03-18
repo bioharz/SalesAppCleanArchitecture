@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using CleanArchitecture.Application.SaleItems.Queries.GetSales;
 using CleanArchitecture.Infrastructure.Persistence;

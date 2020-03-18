@@ -8,10 +8,10 @@ This is a sample project, created with Angular 8, ASP.NET Core 3 and MS MSQL fol
 * Ability to post sales date, which comes in the following format
   - "Article Number": Alphanumeric - up to 32 characters
   - Sales Price: Numerical value in EUR
-* Ability to request the following data / information from the API (WIP)
-  - Number of sold articles per day (WIP)
-  - Total revenue per day (WIP)
-  - Statistics: Revenue grouped by articles (WIP)
+* Ability to request the following data / information from the API
+  - Number of sold articles per day
+  - Total revenue per day
+  - Statistics: Revenue grouped by articles (TODO: calculation should be within the DB, not in business logic!)
   
 ## Further Functionalities
 * ID Solution + JWT Auth (already implemented)

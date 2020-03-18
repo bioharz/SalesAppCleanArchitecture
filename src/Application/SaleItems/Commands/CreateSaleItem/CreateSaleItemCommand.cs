@@ -30,7 +30,6 @@ namespace CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem
 
             public async Task<SaleItemDto> Handle(CreateSaleItemCommand request, CancellationToken cancellationToken = default)
             {
-
                 var articleItemTask = _context.ArticleItems.FindAsync(request.ArticleNumber);
                 
                 var entity = new SaleItem

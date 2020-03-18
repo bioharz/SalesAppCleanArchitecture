@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem;
@@ -11,7 +11,7 @@ namespace CleanArchitecture.Application.UnitTests.SaleItems.Commands.CreateSaleI
     [Collection("QueryTests")]
     public class CreateSaleItemCommandTests : CommandTestBase
     {
-        private const string ArticleNumber = "M1Y9rHiEFr28d6bO1x5wGaHiZTkx5aqB";
+        private const string ArticleNumber = "vegan-leber-käse";
         private const decimal SalesPriceInEuro = 9.33m;
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -29,6 +29,7 @@ namespace CleanArchitecture.Application.UnitTests.SaleItems.Commands.CreateSaleI
             {
                 ArticleNumber = ArticleNumber,
                 SalesPriceInEuro = SalesPriceInEuro,
+                DateTimeOffset = DateTimeOffset.Now.AddDays(-3)
             };
 
             var handler = new CreateSaleItemCommand.CreateSaleItemCommandHandler(_context, _mapper);

@@ -6,6 +6,92 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/GetNumberOfSoldArticlesPerDay/{date}": {
+      "get": {
+        "tags": [
+          "GetNumberOfSoldArticlesPerDay"
+        ],
+        "operationId": "GetNumberOfSoldArticlesPerDay_GetNumberOfSoldArticlesPerDay",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/GetRevenueGroupedByArticles": {
+      "get": {
+        "tags": [
+          "GetRevenueGroupedByArticles"
+        ],
+        "operationId": "GetRevenueGroupedByArticles_GetRevenueGroupedByArticles",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevenueArticleVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/GetTotalRevenuePerDay/{date}": {
+      "get": {
+        "tags": [
+          "GetTotalRevenuePerDay"
+        ],
+        "operationId": "GetTotalRevenuePerDay_GetTotalRevenuePerDay",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "decimal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/SaleItems": {
       "post": {
         "tags": [
@@ -55,10 +141,57 @@
           }
         }
       }
+    },
+    "/api/Statics": {
+      "get": {
+        "tags": [
+          "Statics"
+        ],
+        "operationId": "Statics_GetRevenueGroupedByArticles",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevenueArticleVm"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "RevenueArticleVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "revenueArticles": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/RevenueArticleDto"
+            }
+          }
+        }
+      },
+      "RevenueArticleDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "articleNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "revenueInEuro": {
+            "type": "number",
+            "format": "decimal"
+          }
+        }
+      },
       "SaleItemDto": {
         "type": "object",
         "additionalProperties": false,

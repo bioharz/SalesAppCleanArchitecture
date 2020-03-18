@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -7,8 +6,6 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Moq;
-using Shouldly;
-using Xunit;
 
 namespace CleanArchitecture.Infrastructure.IntegrationTests.Persistence
 {

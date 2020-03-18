@@ -1,5 +1,4 @@
-﻿using System;
-using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Domain.Entities;
 using FluentValidation;
 
 namespace CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem

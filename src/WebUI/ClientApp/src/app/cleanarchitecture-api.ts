@@ -7,12 +7,216 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
-import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
-import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import {catchError as _observableCatch, mergeMap as _observableMergeMap} from 'rxjs/operators';
+import {Observable, of as _observableOf, throwError as _observableThrow} from 'rxjs';
+import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpResponse, HttpResponseBase} from '@angular/common/http';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+
+export interface IGetNumberOfSoldArticlesPerDayClient {
+    getNumberOfSoldArticlesPerDay(date: Date): Observable<number>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class GetNumberOfSoldArticlesPerDayClient implements IGetNumberOfSoldArticlesPerDayClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getNumberOfSoldArticlesPerDay(date: Date): Observable<number> {
+        let url_ = this.baseUrl + "/api/GetNumberOfSoldArticlesPerDay/{date}";
+        if (date === undefined || date === null)
+            throw new Error("The parameter 'date' must be defined.");
+        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null"));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNumberOfSoldArticlesPerDay(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNumberOfSoldArticlesPerDay(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetNumberOfSoldArticlesPerDay(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+}
+
+export interface IGetRevenueGroupedByArticlesClient {
+    getRevenueGroupedByArticles(): Observable<RevenueArticleVm>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class GetRevenueGroupedByArticlesClient implements IGetRevenueGroupedByArticlesClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getRevenueGroupedByArticles(): Observable<RevenueArticleVm> {
+        let url_ = this.baseUrl + "/api/GetRevenueGroupedByArticles";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRevenueGroupedByArticles(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRevenueGroupedByArticles(<any>response_);
+                } catch (e) {
+                    return <Observable<RevenueArticleVm>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RevenueArticleVm>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRevenueGroupedByArticles(response: HttpResponseBase): Observable<RevenueArticleVm> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RevenueArticleVm.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RevenueArticleVm>(<any>null);
+    }
+}
+
+export interface IGetTotalRevenuePerDayClient {
+    getTotalRevenuePerDay(date: Date): Observable<number>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class GetTotalRevenuePerDayClient implements IGetTotalRevenuePerDayClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getTotalRevenuePerDay(date: Date): Observable<number> {
+        let url_ = this.baseUrl + "/api/GetTotalRevenuePerDay/{date}";
+        if (date === undefined || date === null)
+            throw new Error("The parameter 'date' must be defined.");
+        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null"));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalRevenuePerDay(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalRevenuePerDay(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalRevenuePerDay(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+}
 
 export interface ISaleItemsClient {
     create(command: CreateSaleItemCommand): Observable<SaleItemDto>;
@@ -41,9 +245,9 @@ export class SaleItemsClient implements ISaleItemsClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -64,8 +268,8 @@ export class SaleItemsClient implements ISaleItemsClient {
 
     protected processCreate(response: HttpResponseBase): Observable<SaleItemDto> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -90,7 +294,7 @@ export class SaleItemsClient implements ISaleItemsClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",			
+            responseType: "blob",
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -112,8 +316,8 @@ export class SaleItemsClient implements ISaleItemsClient {
 
     protected processGet(response: HttpResponseBase): Observable<SalesVm> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -131,6 +335,156 @@ export class SaleItemsClient implements ISaleItemsClient {
         }
         return _observableOf<SalesVm>(<any>null);
     }
+}
+
+export interface IStaticsClient {
+    getRevenueGroupedByArticles(): Observable<RevenueArticleVm>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class StaticsClient implements IStaticsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getRevenueGroupedByArticles(): Observable<RevenueArticleVm> {
+        let url_ = this.baseUrl + "/api/Statics";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRevenueGroupedByArticles(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRevenueGroupedByArticles(<any>response_);
+                } catch (e) {
+                    return <Observable<RevenueArticleVm>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RevenueArticleVm>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRevenueGroupedByArticles(response: HttpResponseBase): Observable<RevenueArticleVm> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RevenueArticleVm.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RevenueArticleVm>(<any>null);
+    }
+}
+
+export class RevenueArticleVm implements IRevenueArticleVm {
+    revenueArticles?: RevenueArticleDto[] | undefined;
+
+    constructor(data?: IRevenueArticleVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["revenueArticles"])) {
+                this.revenueArticles = [] as any;
+                for (let item of _data["revenueArticles"])
+                    this.revenueArticles!.push(RevenueArticleDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RevenueArticleVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new RevenueArticleVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.revenueArticles)) {
+            data["revenueArticles"] = [];
+            for (let item of this.revenueArticles)
+                data["revenueArticles"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IRevenueArticleVm {
+    revenueArticles?: RevenueArticleDto[] | undefined;
+}
+
+export class RevenueArticleDto implements IRevenueArticleDto {
+    articleNumber?: string | undefined;
+    revenueInEuro?: number;
+
+    constructor(data?: IRevenueArticleDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.articleNumber = _data["articleNumber"];
+            this.revenueInEuro = _data["revenueInEuro"];
+        }
+    }
+
+    static fromJS(data: any): RevenueArticleDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RevenueArticleDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["articleNumber"] = this.articleNumber;
+        data["revenueInEuro"] = this.revenueInEuro;
+        return data;
+    }
+}
+
+export interface IRevenueArticleDto {
+    articleNumber?: string | undefined;
+    revenueInEuro?: number;
 }
 
 export class SaleItemDto implements ISaleItemDto {
@@ -170,7 +524,7 @@ export class SaleItemDto implements ISaleItemDto {
         data["articleNumber"] = this.articleNumber;
         data["salesPriceInEuro"] = this.salesPriceInEuro;
         data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
-        return data; 
+        return data;
     }
 }
 
@@ -215,7 +569,7 @@ export class CreateSaleItemCommand implements ICreateSaleItemCommand {
         data["articleNumber"] = this.articleNumber;
         data["salesPriceInEuro"] = this.salesPriceInEuro;
         data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
-        return data; 
+        return data;
     }
 }
 
@@ -261,7 +615,7 @@ export class SalesVm implements ISalesVm {
             for (let item of this.lists)
                 data["lists"].push(item.toJSON());
         }
-        return data; 
+        return data;
     }
 }
 
@@ -271,10 +625,10 @@ export interface ISalesVm {
 
 export class SwaggerException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -306,12 +660,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = event => { 
+            let reader = new FileReader();
+            reader.onload = event => {
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }

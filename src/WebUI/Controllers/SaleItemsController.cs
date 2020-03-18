@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem;
 using CleanArchitecture.Application.SaleItems.Queries.GetSales;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers
