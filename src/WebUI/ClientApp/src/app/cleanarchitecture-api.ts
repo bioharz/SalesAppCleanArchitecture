@@ -7,10 +7,10 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
-import {catchError as _observableCatch, mergeMap as _observableMergeMap} from 'rxjs/operators';
-import {Observable, of as _observableOf, throwError as _observableThrow} from 'rxjs';
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse, HttpResponseBase} from '@angular/common/http';
+import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
+import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
+import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -35,12 +35,12 @@ export class GetNumberOfSoldArticlesPerDayClient implements IGetNumberOfSoldArti
         let url_ = this.baseUrl + "/api/GetNumberOfSoldArticlesPerDay/{date}";
         if (date === undefined || date === null)
             throw new Error("The parameter 'date' must be defined.");
-        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null"));
+        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null")); 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -62,8 +62,8 @@ export class GetNumberOfSoldArticlesPerDayClient implements IGetNumberOfSoldArti
 
     protected processGetNumberOfSoldArticlesPerDay(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -106,7 +106,7 @@ export class GetRevenueGroupedByArticlesClient implements IGetRevenueGroupedByAr
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -128,8 +128,8 @@ export class GetRevenueGroupedByArticlesClient implements IGetRevenueGroupedByAr
 
     protected processGetRevenueGroupedByArticles(response: HttpResponseBase): Observable<RevenueArticleVm> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -170,12 +170,12 @@ export class GetTotalRevenuePerDayClient implements IGetTotalRevenuePerDayClient
         let url_ = this.baseUrl + "/api/GetTotalRevenuePerDay/{date}";
         if (date === undefined || date === null)
             throw new Error("The parameter 'date' must be defined.");
-        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null"));
+        url_ = url_.replace("{date}", encodeURIComponent(date ? "" + date.toJSON() : "null")); 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -197,8 +197,8 @@ export class GetTotalRevenuePerDayClient implements IGetTotalRevenuePerDayClient
 
     protected processGetTotalRevenuePerDay(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -245,9 +245,9 @@ export class SaleItemsClient implements ISaleItemsClient {
         let options_ : any = {
             body: content_,
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
+                "Content-Type": "application/json", 
                 "Accept": "application/json"
             })
         };
@@ -268,8 +268,8 @@ export class SaleItemsClient implements ISaleItemsClient {
 
     protected processCreate(response: HttpResponseBase): Observable<SaleItemDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -294,7 +294,7 @@ export class SaleItemsClient implements ISaleItemsClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -316,8 +316,8 @@ export class SaleItemsClient implements ISaleItemsClient {
 
     protected processGet(response: HttpResponseBase): Observable<SalesVm> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -360,7 +360,7 @@ export class StaticsClient implements IStaticsClient {
 
         let options_ : any = {
             observe: "response",
-            responseType: "blob",
+            responseType: "blob",			
             headers: new HttpHeaders({
                 "Accept": "application/json"
             })
@@ -382,8 +382,8 @@ export class StaticsClient implements IStaticsClient {
 
     protected processGetRevenueGroupedByArticles(response: HttpResponseBase): Observable<RevenueArticleVm> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -439,7 +439,7 @@ export class RevenueArticleVm implements IRevenueArticleVm {
             for (let item of this.revenueArticles)
                 data["revenueArticles"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -478,7 +478,7 @@ export class RevenueArticleDto implements IRevenueArticleDto {
         data = typeof data === 'object' ? data : {};
         data["articleNumber"] = this.articleNumber;
         data["revenueInEuro"] = this.revenueInEuro;
-        return data;
+        return data; 
     }
 }
 
@@ -524,7 +524,7 @@ export class SaleItemDto implements ISaleItemDto {
         data["articleNumber"] = this.articleNumber;
         data["salesPriceInEuro"] = this.salesPriceInEuro;
         data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -569,7 +569,7 @@ export class CreateSaleItemCommand implements ICreateSaleItemCommand {
         data["articleNumber"] = this.articleNumber;
         data["salesPriceInEuro"] = this.salesPriceInEuro;
         data["dateTimeOffset"] = this.dateTimeOffset ? this.dateTimeOffset.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -615,7 +615,7 @@ export class SalesVm implements ISalesVm {
             for (let item of this.lists)
                 data["lists"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -625,10 +625,10 @@ export interface ISalesVm {
 
 export class SwaggerException extends Error {
     message: string;
-    status: number;
-    response: string;
+    status: number; 
+    response: string; 
     headers: { [key: string]: any; };
-    result: any;
+    result: any; 
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -660,12 +660,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader();
-            reader.onload = event => {
+            let reader = new FileReader(); 
+            reader.onload = event => { 
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob);
+            reader.readAsText(blob); 
         }
     });
 }
