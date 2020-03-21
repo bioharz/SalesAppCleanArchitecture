@@ -13,6 +13,12 @@ COPY tests/Domain.UnitTests/Domain.UnitTests.csproj tests/Domain.UnitTests/Domai
 COPY tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj
 COPY tests/WebUI.IntegrationTests/WebUI.IntegrationTests.csproj tests/WebUI.IntegrationTests/WebUI.IntegrationTests.csproj
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+#BEGIN OF DIRTY WORKAROUND!
+RUN apt-get update
+RUN apt-get install --yes curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install --yes nodejs
+#END OF DIRTY WORKAROUND!
 RUN dotnet restore
 
 # copy everything else and build app
