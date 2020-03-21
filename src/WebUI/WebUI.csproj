@@ -41,8 +41,20 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
+    <Content Include="ClientApp\src\app\statics\statics.component.css" />
+    <Content Include="ClientApp\src\app\statics\statics.component.html" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="ClientApp\src\app\services\sales.service.spec.ts" />
+    <None Include="ClientApp\src\app\services\sales\sales.service.spec.ts" />
+    <None Include="ClientApp\src\app\services\sales\sales.service.ts" />
+    <None Include="ClientApp\src\app\services\statics.service.spec.ts" />
+    <None Include="ClientApp\src\app\services\statics.service.ts" />
+    <None Include="ClientApp\src\app\services\statics\statics.service.spec.ts" />
+    <None Include="ClientApp\src\app\services\statics\statics.service.ts" />
+    <None Include="ClientApp\src\app\statics\statics.component.ts" />
+    <None Include="ClientApp\src\sales.service.spec.ts" />
+    <None Include="ClientApp\src\sales.service.ts" />
   </ItemGroup>
 
   <ItemGroup>

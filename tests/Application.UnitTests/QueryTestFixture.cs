@@ -4,7 +4,7 @@ using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Infrastructure.Persistence;
 using Xunit;
 
-namespace CleanArchitecture.Application.UnitTests.Common
+namespace CleanArchitecture.Application.UnitTests
 {
     public sealed class QueryTestFixture : IDisposable
     {
@@ -31,4 +31,7 @@ namespace CleanArchitecture.Application.UnitTests.Common
 
     [CollectionDefinition("QueryTests")]
     public class QueryCollection : ICollectionFixture<QueryTestFixture> { }
+    
+    [CollectionDefinition("CommandTests")]
+    public class CommandCollection : ICollectionFixture<QueryTestFixture> { }
 }

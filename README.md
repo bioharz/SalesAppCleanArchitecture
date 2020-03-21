@@ -1,30 +1,43 @@
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/master/.github/icon.png" />
- 
- # Clean Architecture Solution Template
-[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.5-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
+# SalesApp
 
-<br/>
+### Applying the concepts of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-This is a solution template for creating a Single Page App (SPA) with Angular 8 and ASP.NET Core 3 following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+This is a sample project, created with Angular 8, ASP.NET Core 3 and MS MSQL following the principles of Clean Architecture.
 
+## Main Functionalities
+* Ability to post sales date, which comes in the following format
+  - "Article Number": Alphanumeric - up to 32 characters
+  - Sales Price: Numerical value in EUR
+* Ability to request the following data / information from the API
+  - Number of sold articles per day
+  - Total revenue per day
+  - Statistics: Revenue grouped by articles (TODO: calculation should be within the DB, not in business logic!)
+  
+## Further Functionalities
+* ID Solution + JWT Auth (already implemented)
+
+## TODOS
+ - CI / CD Azure Devops
+ - Statistics: Revenue grouped by articles (TODO: calculation should be within the DB, not in business logic!
+ - Dockerfile for Tests
 
 ## Technologies
 * .NET Core 3.1
 * ASP .NET Core 3.1
 * Entity Framework Core 3.1
 * Angular 8
+* Docker & Docker-Compose
+* MS SQL
 
 ## Getting Started
 
-The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
-
 1. Install the latest [.NET Core SDK](https://dotnet.microsoft.com/download)
-2. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
-3. Run `dotnet new ca-sln` to create a new project
-4. Navigate to `src/WebUI` and run `dotnet run` to launch the project
+2. (optional, if MS SQL is not installed) Install the latest [Docker Engine](https://www.docker.com/get-started)
+3. (optional, if MS SQL is not installed) Run `docker-compose up -d` to spin up the MS SQL Container.
+5.  run `dotnet run` to launch the project. Angular-Url: `https://localhost:5001/`. Swagger-Url: `https://localhost:5001/api`
 
-## Overview
+WIP: Dockerfile and docker-compose service.
+## Architecture Overview
 
 ### Domain
 
@@ -58,10 +71,9 @@ For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI`
 
-## Support
-
-If you are having problems, please let us know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
-
 ## License
 
 This project is licensed with the [MIT license](LICENSE).
+Solution Template based on [CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture).
+
+Special thanks to [Uncle Bob (Robert C. Martin)](https://blog.cleancoder.com/) ❤️ 

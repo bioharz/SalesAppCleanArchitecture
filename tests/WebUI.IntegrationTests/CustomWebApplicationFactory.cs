@@ -1,4 +1,7 @@
-﻿using CleanArchitecture.Application;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -8,10 +11,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI.IntegrationTests
 {
@@ -122,11 +121,12 @@ namespace CleanArchitecture.WebUI.IntegrationTests
 
         public static void SeedSampleData(ApplicationDbContext context)
         {
-            context.TodoItems.AddRange(
-                new TodoItem { Id = 1, Title = "Do this thing." },
-                new TodoItem { Id = 2, Title = "Do this thing too." },
-                new TodoItem { Id = 3, Title = "Do many, many things." },
-                new TodoItem { Id = 4, Title = "This thing is done!", Done = true }
+            context.SaleItems.AddRange(
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "cnL1iJBWcnRxnIRsB5c15JxJvg2hQbPj"}, SalesPriceInEuro = 66.23m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "DxhmHuMu9SKyWTLT7HoszZ8GBY5HfoM8"}, SalesPriceInEuro = 234.54m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "cknJ8NCOfd3opjCe1DzmTARXwQM5pJwj"}, SalesPriceInEuro = 1235.01m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "ufYLJY8ydzPLh1gJcaAhnR2w90HOfx9p"}, SalesPriceInEuro = 10000.00m},
+                new SaleItem {ArticleItem = new ArticleItem{ArticleNumber = "ZIQo2AbJrOsSIvp6PCnJQCFGZE0M3VPd"}, SalesPriceInEuro = 3.66m}
             );
 
             context.SaveChanges();

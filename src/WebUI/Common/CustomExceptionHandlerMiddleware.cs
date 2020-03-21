@@ -1,10 +1,12 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Exceptions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CleanArchitecture.WebUI.Common
 {
@@ -44,6 +46,15 @@ namespace CleanArchitecture.WebUI.Common
                 case NotFoundException _:
                     code = HttpStatusCode.NotFound;
                     break;
+                case DbUpdateException dbUpdateException:
+                    const int PrimaryKeyConstraintViolationMsSqlExceptionNumber = 2627;
+                    if (!(dbUpdateException.InnerException is SqlException)) break;
+                    if ((dbUpdateException.InnerException as SqlException).Number !=
+                        PrimaryKeyConstraintViolationMsSqlExceptionNumber) break;
+                    code = HttpStatusCode.Conflict;
+                    result = JsonConvert.SerializeObject(new DuplicateKeyException().Message);
+                    break;
+                    
             }
 
             context.Response.ContentType = "application/json";

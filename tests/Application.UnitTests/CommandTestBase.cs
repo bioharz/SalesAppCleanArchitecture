@@ -1,7 +1,7 @@
-using CleanArchitecture.Infrastructure.Persistence;
 using System;
+using CleanArchitecture.Infrastructure.Persistence;
 
-namespace CleanArchitecture.Application.UnitTests.Common
+namespace CleanArchitecture.Application.UnitTests
 {
     public class CommandTestBase : IDisposable
     {
