@@ -13,12 +13,17 @@ import {AuthorizeGuard} from 'src/api-authorization/authorize.guard';
 import {AuthorizeInterceptor} from 'src/api-authorization/authorize.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { SalesComponent } from './sales/sales.component';
+import { StaticsComponent } from './statics/statics.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    SalesComponent,
+    StaticsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,9 +33,12 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'sales', component: SalesComponent },
+      { path: 'statics', component: StaticsComponent },
     ]),
     BrowserAnimationsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
