@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using CleanArchitecture.Application.SaleItems.Queries.GetSales;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -27,7 +26,7 @@ namespace CleanArchitecture.Application.UnitTests.SaleItems.Queries.GetSales
 
             var handler = new GetSalesQuery.GetSalesQueryHandler(_context, _mapper);
 
-            var result = await handler.Handle(query, CancellationToken.None);
+            var result = await handler.Handle(query);
 
             result.ShouldBeOfType<SalesVm>();
             result.Lists.Count.ShouldBe(5);

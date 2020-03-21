@@ -1,0 +1,20 @@
+<h1>Sales item</h1>
+
+<p *ngIf="!salesVm"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="salesVm">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>ArticleNumber</th>
+    <th>DateTime</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let list of salesVm.lists; index as i">
+    <td>{{list.id}}</td>
+    <td>{{list.articleNumber}}</td>
+    <td>{{list.dateTimeOffset.toLocaleString()}}</td>
+  </tr>
+  </tbody>
+</table>

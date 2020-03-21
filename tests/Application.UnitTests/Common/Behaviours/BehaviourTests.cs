@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using CleanArchitecture.Application.Common.Behaviours;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.SaleItems.Commands.CreateSaleItem;
@@ -32,7 +33,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 
             IRequestPreProcessor<CreateSaleItemCommand> requestLogger = new RequestLogger<CreateSaleItemCommand>(logger.Object, currentUserService.Object, identityService.Object);
 
-            requestLogger.Process(new CreateSaleItemCommand { ArticleNumber = ArticleNumber, SalesPriceInEuro = SalesPriceInEuro }, new CancellationToken());
+            requestLogger.Process(new CreateSaleItemCommand { ArticleNumber = ArticleNumber, SalesPriceInEuro = SalesPriceInEuro, DateTimeOffset = DateTimeOffset.Now.AddDays(-2)}, new CancellationToken());
 
             identityService.Verify(i => i.GetUserNameAsync(UserId), Times.Once);
         }

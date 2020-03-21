@@ -8,7 +8,9 @@ namespace CleanArchitecture.Application.Common.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<SaleItem> SaleItems { get; set; }
-
+        
+        DbSet<ArticleItem> ArticleItems { get; set; }
+        
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

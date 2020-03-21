@@ -4,14 +4,16 @@ using CleanArchitecture.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CleanArchitecture.Infrastructure.Persistence.Migrations
+namespace CleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200317073046_SalesAppInitial")]
+    partial class SalesAppInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,28 +21,36 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.SaleItem", b =>
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.ArticleItem", b =>
                 {
                     b.Property<string>("ArticleNumber")
                         .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.HasKey("ArticleNumber");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.ToTable("ArticleItems");
+                });
 
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.SaleItem", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ArticleItemArticleNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<DateTimeOffset>("DateTimeOffset")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<decimal>("SalesPriceInEuro")
                         .HasColumnType("money");
 
-                    b.HasKey("ArticleNumber");
+                    b.HasKey("id");
+
+                    b.HasIndex("ArticleItemArticleNumber");
 
                     b.ToTable("SaleItems");
                 });
@@ -325,6 +335,15 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.SaleItem", b =>
+                {
+                    b.HasOne("CleanArchitecture.Domain.Entities.ArticleItem", "ArticleItem")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("ArticleItemArticleNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

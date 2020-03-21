@@ -1,12 +1,23 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CleanArchitecture.Infrastructure.Persistence.Migrations
+namespace CleanArchitecture.Infrastructure.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class SalesAppInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ArticleItems",
+                columns: table => new
+                {
+                    ArticleNumber = table.Column<string>(maxLength: 32, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleItems", x => x.ArticleNumber);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -78,6 +89,26 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleItems",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(nullable: false),
+                    SalesPriceInEuro = table.Column<decimal>(type: "money", nullable: false),
+                    ArticleItemArticleNumber = table.Column<string>(nullable: false),
+                    DateTimeOffset = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleItems", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_SaleItems_ArticleItems_ArticleItemArticleNumber",
+                        column: x => x.ArticleItemArticleNumber,
+                        principalTable: "ArticleItems",
+                        principalColumn: "ArticleNumber",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -245,6 +276,11 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 name: "IX_PersistedGrants_SubjectId_ClientId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleItems_ArticleItemArticleNumber",
+                table: "SaleItems",
+                column: "ArticleItemArticleNumber");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -271,10 +307,16 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "SaleItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ArticleItems");
         }
     }
 }

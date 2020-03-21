@@ -1,0 +1,53 @@
+<h3>
+  Statics
+</h3>
+
+<div class="row">
+  <div class="col">
+    <span>We have sold </span>
+    <b >{{numberOfSoldArticlesPerDay}} </b>
+    <span>articles on</span>
+  </div>
+  <div class="col">
+    <span>Our income is </span>
+
+    <b >{{totalRevenuePerDay}} € </b>
+    <span> on</span>
+  </div>
+  <div class="w-100"></div>
+  <div class="col">
+    <input type="text"
+           placeholder="Datepicker"
+           class="form-control"
+           bsDatepicker
+           [bsValue]="numberOfSoldArticlesDate"
+           (bsValueChange)="getNumberOfSoldArticlesPerDay($event)">
+  </div>
+  <div class="col">
+    <input type="text"
+           placeholder="Datepicker"
+           class="form-control"
+           bsDatepicker
+           [bsValue]="totalRevenueDate"
+           (bsValueChange)="getTotalRevenuePerDay($event)">
+  </div>
+</div>
+
+<br>
+
+<h3>
+  Revenue per article
+  <em *ngIf="!revenueVm">loading...</em>
+</h3>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="revenueVm">
+  <tr>
+    <th>ArticleNumber</th>
+    <th>Revenue in €</th>
+  </tr>
+  <tbody>
+  <tr *ngFor="let list of revenueVm.revenueArticles; index as i">
+    <td>{{list.articleNumber}}</td>
+    <td>{{list.revenueInEuro}}</td>
+  </tr>
+  </tbody>
+</table>
