@@ -21,3 +21,4 @@
 **/.toolstarget
 
 src/WebUI/ClientApp/node_modules
+out

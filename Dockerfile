@@ -30,12 +30,12 @@ LABEL vendor="Reza Shokri"
 
 #building the main image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
-RUN adduser --disabled-password --gecos "" app
+#RUN adduser --disabled-password --gecos "" app
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 ENV COMPlus_EnableDiagnostics=0
 ENV ASPNETCORE_URLS="http://*:14000"
 WORKDIR /app
 COPY --from=build /app/out ./
-USER app
+#USER app
 EXPOSE 14000
-ENTRYPOINT ["dotnet", "CleanArchitecture.sln.dll"] 
+ENTRYPOINT ["dotnet", "CleanArchitecture.WebUI.dll"] 
