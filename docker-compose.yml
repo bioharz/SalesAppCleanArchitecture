@@ -12,7 +12,7 @@ services:
             - db 
 
     salesapp:
-        image: "SalesAppCleanArchitecture:latest"
+        image: "sales_app_clean_architecture:latest"
         build:
           context: ./
           dockerfile: ./Dockerfile
