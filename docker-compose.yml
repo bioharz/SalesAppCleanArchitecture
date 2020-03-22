@@ -7,4 +7,26 @@ services:
             SA_PASSWORD: "TheSuperSecurePassw0rd"
             ACCEPT_EULA: "Y"
         ports:
-        - "1433:1433"
+            - "1433:1433"
+        networks:
+            - db 
+
+    salesapp:
+        image: "SalesAppCleanArchitecture:latest"
+        build:
+          context: ./
+          dockerfile: ./Dockerfile
+        environment:
+            ASPNETCORE_ENVIRONMENT: "Production"
+        networks:
+            - db
+        depends_on:
+          - db
+        volumes:
+        - ./src/WebUI/appsettings.Production.json:/app/appsettings.Production.json:ro
+        - ./src/WebUI/appsettings.json:/app/appsettings.json:ro
+        ports:
+        - 14000:14000
+            
+networks:
+     db:
